@@ -6,9 +6,9 @@ import time
 import dotenv
 
 os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+dotenv.load_dotenv(dotenv.find_dotenv())
 
-
-subreddit = 'blurrypicturesofcats'
+subreddit = os.getenv("subreddit")
 
 cache_file = 'data/'+subreddit+'.txt'
 
@@ -16,7 +16,7 @@ cache_file = 'data/'+subreddit+'.txt'
 if not os.path.isdir('data'):
     os.mkdir('data')
 
-dotenv.load_dotenv(dotenv.find_dotenv())
+
 
 def enable_reddit():
     global reddit

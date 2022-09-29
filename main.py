@@ -10,22 +10,26 @@ from time import sleep
 import subrredit_pics
 
 
-
 dotenv.load_dotenv(dotenv.find_dotenv())
+
+def download_icon():
+    link = 'https://raw.githubusercontent.com/spxrked/Catto/main/icon.ico'
+    
+    r = urlget(link)
+
+    with open('data/icon.ico',"wb") as f:
+        f.write(r.content)
 
 
 def save_image():
     
     link = subrredit_pics.get_image()
     
-
     r = urlget(link)
-    
+
     with open('data/currentpic.jpg',"wb") as f:
         f.write(r.content)
     
-
-
 
 def make_good_res():
 
@@ -54,6 +58,9 @@ def display_window(good_img, good_res):
 
     window = Tk()
 
+    download_icon()
+    window.iconbitmap("data/icon.ico")
+    
     window.title("Sporko Catto!!!")
     window.configure(width=good_width, height=good_height)
     window.configure(bg='lightgray')
@@ -83,8 +90,10 @@ def run():
 
     save_image()
 
+
 save_image()
 
+download_icon()
 
 keyboard.add_hotkey(os.getenv("cat_hotkey"), run)
 
