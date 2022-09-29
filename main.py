@@ -5,7 +5,6 @@ import tkinter
 from tkinter import *
 from PIL import Image, ImageTk
 import dotenv
-from time import sleep
 
 import subrredit_pics
 
