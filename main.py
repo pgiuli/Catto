@@ -5,6 +5,7 @@ import tkinter
 from tkinter import *
 from PIL import Image, ImageTk
 import dotenv
+from time import sleep
 
 import subrredit_pics
 
@@ -66,6 +67,10 @@ def display_window(good_img, good_res):
 
 
     label1.place(x=0, y=0)
+
+    window.after(3000,lambda:window.destroy())
+    
+    
     window.mainloop()
 
 
