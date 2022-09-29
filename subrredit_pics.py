@@ -5,6 +5,8 @@ from random import randint
 import time
 import dotenv
 
+import base64encode
+
 os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
 dotenv.load_dotenv(dotenv.find_dotenv())
 
@@ -21,25 +23,49 @@ if not os.path.isdir('data'):
 def enable_reddit():
     global reddit
     
-    reddit = praw.Reddit(
-    client_id = os.getenv("client_id"),
-    client_secret = os.getenv("client_secret"),
-    username = os.getenv("reddit_username"),
-    password = os.getenv("password"),
-    user_agent = os.getenv("user_agent"),
-    check_for_updates=False,
-    comment_kind="t1",
-    message_kind="t4",
-    redditor_kind="t2",
-    submission_kind="t3",
-    subreddit_kind="t5",
-    trophy_kind="t6",
-    oauth_url="https://oauth.reddit.com",
-    reddit_url="https://www.reddit.com",
-    short_url="https://redd.it",
-    ratelimit_seconds=5,
-    timeout=16,
-    )
+    if os.getenv("base64") == 'True':
+        
+        reddit = praw.Reddit(
+        client_id = str(base64encode.decode_message(os.getenv("client_id"))),
+        client_secret = str(base64encode.decode_message(os.getenv("client_secret"))),
+        username = str(base64encode.decode_message(os.getenv("reddit_username"))),
+        password = str(base64encode.decode_message(os.getenv("password"))),
+        user_agent = os.getenv("user_agent"),
+        check_for_updates=False,
+        comment_kind="t1",
+        message_kind="t4",
+        redditor_kind="t2",
+        submission_kind="t3",
+        subreddit_kind="t5",
+        trophy_kind="t6",
+        oauth_url="https://oauth.reddit.com",
+        reddit_url="https://www.reddit.com",
+        short_url="https://redd.it",
+        ratelimit_seconds=5,
+        timeout=16,
+        )
+
+    else:
+
+        reddit = praw.Reddit(
+        client_id = os.getenv("client_id"),
+        client_secret = os.getenv("client_secret"),
+        username = os.getenv("reddit_username"),
+        password = os.getenv("password"),
+        user_agent = os.getenv("user_agent"),
+        check_for_updates=False,
+        comment_kind="t1",
+        message_kind="t4",
+        redditor_kind="t2",
+        submission_kind="t3",
+        subreddit_kind="t5",
+        trophy_kind="t6",
+        oauth_url="https://oauth.reddit.com",
+        reddit_url="https://www.reddit.com",
+        short_url="https://redd.it",
+        ratelimit_seconds=5,
+        timeout=16,
+        )
 
 
 def check_cached():
