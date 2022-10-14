@@ -2,6 +2,7 @@
 Automated pop-up cats!
 
 In order for the script to run correctly create a **.env** file in the root folder with the following:
+(yes, you can use other subreddits with image submissions.)
 ```
 subrredit = 'cats'
 base64 = 'True/False'
