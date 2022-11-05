@@ -91,7 +91,7 @@ def get_sumbissions():
     enable_reddit()
 
     loaded_subreddit = reddit.subreddit(str(subreddit))
-    top = loaded_subreddit.hot(limit=500)
+    top = loaded_subreddit.top(limit=500)
     
     return top
 
