@@ -4,21 +4,16 @@ Automated pop-up cats!
 In order for the script to run correctly create a **.env** file in the root folder with the following:
 (yes, you can use other subreddits with image submissions.)
 ```
-subrredit = 'cats'
-base64 = 'True/False'
+subreddit = 'cats'
+base64 = 'True'
 
-client_id = '' 
+client_id = ''
 client_secret = ''
-reddit_username = ''
-password = ''
 
-
-user_agent = ''
-
-pic_hotkey = 'F3+c'
-stop_hotkey = 'F3+b'
+pic_hotkey = 'right shift'
+stop_hotkey = 'control + right shift'
 ```
-client_id, client_secret, reddit_username and password must be base64 encoded if ```base64 = 'True'```.
+client_id, client_secret must be base64 encoded if ```base64 = 'True'```.
 
 ## Todo:
 
