@@ -15,7 +15,16 @@ password = ''
 
 user_agent = ''
 
-cat_hotkey = 'F3+c'
+pic_hotkey = 'F3+c'
 stop_hotkey = 'F3+b'
 ```
 client_id, client_secret, reddit_username and password must be base64 encoded if ```base64 = 'True'```.
+
+## Todo:
+
+    - Rewrite in order to use tempfile instead of creating a 'data' folder, thus reducing clutter
+    - Create setup routine
+    - Store credentials in AppData folder
+    - Customization menu
+    - Add 'run on startup' setting
+    - Add 'How to create reddit application' in README

@@ -5,21 +5,33 @@ import tkinter
 from tkinter import *
 from PIL import Image, ImageTk
 import dotenv
+import tempfile
 
+#Import file to download reddit images for specified subreddit
 import subrredit_pics
 
 
+
+#Load dotenv file
 dotenv.load_dotenv(dotenv.find_dotenv())
 
-def download_icon():
-    link = 'https://raw.githubusercontent.com/spxrked/Catto/main/icon.ico'
+
+def get_icon():
+
+    #Create transparent icon for Tk window, from here :D https://stackoverflow.com/questions/550050/removing-the-tk-icon-on-a-tkinter-window
+
+    ICON = (b'\x00\x00\x01\x00\x01\x00\x10\x10\x00\x00\x01\x00\x08\x00h\x05\x00\x00'
+            b'\x16\x00\x00\x00(\x00\x00\x00\x10\x00\x00\x00 \x00\x00\x00\x01\x00'
+            b'\x08\x00\x00\x00\x00\x00@\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            b'\x00\x01\x00\x00\x00\x01') + b'\x00'*1282 + b'\xff'*64
+
+    _, ICON_PATH = tempfile.mkstemp()
+    with open(ICON_PATH, 'wb') as icon_file:
+        icon_file.write(ICON)
     
-    r = urlget(link)
+    return ICON_PATH
 
-    with open('data/icon.ico',"wb") as f:
-        f.write(r.content)
-
-
+#Save loaded image to data folder
 def save_image():
     
     link = subrredit_pics.get_image()
@@ -29,7 +41,7 @@ def save_image():
     with open('data/currentpic.jpg',"wb") as f:
         f.write(r.content)
     
-
+#Reduce image resolution (Has to be optimized smh)
 def make_good_res():
 
     image = Image.open('data/currentpic.jpg')
@@ -49,52 +61,52 @@ def make_good_res():
 
     return resized, resized_res
 
-
+#Display image in window
 def display_window(good_img, good_res):
 
-
-    good_width, good_height = good_res
-
+    #Create window
     window = Tk()
 
-    download_icon()
-    window.iconbitmap("data/icon.ico")
+    #Load icon (currently transparent until I make one lmao)
+    icon = get_icon()
+    window.iconbitmap(default=icon)
     
-    window.title("Sporko Catto!!!")
-    window.configure(width=good_width, height=good_height)
+    #Set window resolution and other aspects
+    window.title("Kat!")
+    window.configure(width=good_res[0], height=good_res[1])
     window.configure(bg='lightgray')
     window.resizable(False, False)
 
-
+    #Create image object and place it in window
     image = ImageTk.PhotoImage(good_img)
+    imagelabel = tkinter.Label(image=image)
+    imagelabel.image = image
+    imagelabel.place(x=0, y=0)
 
-    label1 = tkinter.Label(image=image)
-    label1.image = image
-
-
-    label1.place(x=0, y=0)
-
+    #Destroy window after 3 seconds
     window.after(3000,lambda:window.destroy())
-    
     
     window.mainloop()
 
 
-
+#Run window 
 def run():
 
+    #Load and make image correct res (This needs to be moved after downloading next image to reduce loading time.)
     image, good_res = make_good_res()
 
+    #Displays window with previously loaded image and resolution
     display_window(image, good_res)
-
+    
+    #Saves another image for next run
     save_image()
 
 
+#Saves image on startup
 save_image()
 
-download_icon()
+#Bind keychord in .env to window function
+keyboard.add_hotkey(os.getenv("pic_hotkey"), run)
 
-keyboard.add_hotkey(os.getenv("cat_hotkey"), run)
-
-
+#Bind keychord to stop program
 keyboard.wait(os.getenv("stop_hotkey"))

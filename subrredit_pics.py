@@ -1,4 +1,3 @@
-from cgitb import enable
 import praw
 import os
 from random import randint
