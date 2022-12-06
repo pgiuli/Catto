@@ -27,9 +27,7 @@ def enable_reddit():
         reddit = praw.Reddit(
         client_id = str(base64encode.decode_message(os.getenv("client_id"))),
         client_secret = str(base64encode.decode_message(os.getenv("client_secret"))),
-        username = str(base64encode.decode_message(os.getenv("reddit_username"))),
-        password = str(base64encode.decode_message(os.getenv("password"))),
-        user_agent = os.getenv("user_agent"),
+        user_agent = 'Catto',
         check_for_updates=False,
         comment_kind="t1",
         message_kind="t4",
