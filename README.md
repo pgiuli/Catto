@@ -17,7 +17,7 @@ client_id, client_secret must be base64 encoded if ```base64 = 'True'```.
 
 ## Todo:
 
-    - Rewrite in order to use tempfile instead of creating a 'data' folder, thus reducing clutter
+    - ~~Rewrite in order to use tempfile instead of creating a 'data' folder, thus reducing clutter~~
     - Create setup routine
     - Store credentials in AppData folder
     - Customization menu
